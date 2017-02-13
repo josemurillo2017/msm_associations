@@ -29,7 +29,9 @@
       <ul class="text-center">
 
         <% @characters.each do |character| %>
-        <li><%= character.actor.name %> (<%= character.name %>)</li>
+        <li><%= character.actor.name %>
+
+          (<%= character.try(:name) %>)</li>
         <% end %>
 
       </ul>
@@ -51,13 +53,7 @@
       <input type="hidden" name="movie_id" value="<%= @movie.id %>">
 
       <!-- Label and input for actor_id -->
-      <div class="form-group">
-        <label for="actor_id" class="control-label">
-          Actor
-        </label>
-
-        <input type="text" id="actor_id" name="actor_id" placeholder="Actor" class="form-control">
-      </div>
+      <%= select_tag(:actor_id, options_from_collection_for_select(Actor.all, :id, :name, @movie.actors), :class => "form-control")%>
 
       <!-- Label and input for name -->
       <div class="form-group">
